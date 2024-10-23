@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Venta</title> 
+    <link rel="stylesheet" href="../../fonts/material-icon/css/material-design-iconic-font.min.css"> 
+    <link rel="stylesheet" href="../../css/style.css">
+    <meta name="robots" content="noindex, follow">
+</head>
+<body> 
+    <div class="main"> 
+        <section class="signup"> 
+            <div class="container">
+                <div class="signup-content">
+                    <form method="POST" id="signup-form-venta" class="signup-form">
+                        <h2 class="form-title">Registro de Venta</h2>
+
+                         <div class="form-group">
+                            <select class="form-input" name="cliente" id="cliente" required>
+                                <option value="1">Cliente 1</option>
+                                <option value="2">Cliente 2</option>
+                                <option value="3">Cliente 3</option>
+                                <option value="4">Cliente 4</option>
+                                <option value="5">Cliente 5</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <select class="form-input" name="almacen" id="almacen" required>
+                                <option value="1">Almacen 1</option>
+                                <option value="2">Almacen 2</option>
+                                <option value="3">Almacen 3</option>
+                                <option value="4">Almacen 4</option>
+                                <option value="5">Almacen 5</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group"> 
+                            <select class="form-input" name="formaPago" id="formaPago" required>
+                                <option value="1">Efectivo</option>
+                                <option value="2">QR</option>
+                                <option value="3">Deposito en Cuenta</option>
+                                <option value="4">Transferencia Bancaria</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group"> 
+                            <select class="form-input" name="formaEntrega" id="formaEntrega" required>
+                                <option value="1">Delivery</option>
+                                <option value="2">En agencia</option> 
+                            </select>
+                        </div>
+                        <div class="form-group" style="border: 1px solid #ede5e5; border-radius: 5px; padding: 16px;">
+                            <label for="producto">Producto</label>
+                            <select class="form-input" name="producto" id="producto" required>
+                                <option value="">Seleccione un producto</option>
+                                <option pid = "P0003" value="3" data-price="1000" data-manufacturer="ASUS">ASUS ROG</option>
+                                <option pid = "P0002"value="2" data-price="900" data-manufacturer="HP">HP Pavilion</option>
+                                <option pid = "P0001" value="1" data-price="1200" data-manufacturer="Dell">Dell Gaming</option>
+                                <option pid = "P0004"value="4" data-price="500" data-manufacturer="Lenovo">Lenovo Ideapad 5</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="codigo">Código de Producto</label>
+                            <input type="text" class="form-input" id="codigo" readonly style="cursor: not-allowed;" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="precio">Precio</label>
+                            <input type="text" class="form-input" id="precio" readonly style="cursor: not-allowed;" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fabricante">Fabricante</label>
+                            <input type="text" class="form-input" id="fabricante" readonly style="cursor: not-allowed;" />
+                        </div>
+                        <div class="form-group">
+                            <label for="cantidad">Cantidad</label>
+                            <input type="number" class="form-input" id="cantidad" min="1" value="1" required />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="totalCalculado">Total a Pagar</label>
+                            <input type="text" class="form-input" id="totalCalculado" readonly style="cursor: not-allowed;" />
+                        </div>
+                        
+                        <div class="row" style="display: inline-flex;width: 100%;">
+                            <div class="form-group" style="width: 50%;padding-right: 2px;">
+                                <input type="number" class="form-input" step="0.01" min="0" name="descuentoGlobal" id="descuentoGlobal" placeholder="Descuento Global"   required/>
+                            </div>
+                            <div class="form-group"  style="width: 50%;padding-left: 2px;">
+                                <input type="number" class="form-input" step="0.01" min="0" name="total" id="total" placeholder="Total"  required/>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <textarea class="form-input" name="observaciones" id="observaciones" placeholder="Observaciones" required></textarea>
+                        </div> 
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Registro de Venta">
+                        </div>
+                    </form> 
+                    <p class="loginhere" id="mesageResponse" style="display: none;"> 
+                        
+                    </p>
+                    <p class="loginhere" id="loginhere" style="display: none;"> 
+                        Registrando.....
+                      </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../../js/venta.js"></script>
+    <script>
+        document.getElementById('producto').addEventListener('change', function() {
+            var selectedOption = this.options[this.selectedIndex];
+            var codigo = selectedOption.getAttribute('pid');
+            var precio = parseFloat(selectedOption.getAttribute('data-price'));
+            var fabricante = selectedOption.getAttribute('data-manufacturer');
+    
+            document.getElementById('codigo').value = codigo;
+            document.getElementById('precio').value = precio.toFixed(2);
+            document.getElementById('fabricante').value = fabricante;
+    
+            // Calcular el total cuando cambie el producto
+            calcularTotal(precio);
+        });
+    
+        document.getElementById('cantidad').addEventListener('input', function() {
+            var precio = parseFloat(document.getElementById('precio').value);
+            var cantidad = parseInt(this.value) || 0; 
+    
+            calcularTotal(precio, cantidad);
+        });
+    
+        document.getElementById('descuentoGlobal').addEventListener('input', function() {
+            var descuento = parseFloat(this.value) || 0;
+            var totalAPagar = parseFloat(document.getElementById('totalCalculado').value) || 0;
+            
+            // Aplicar descuento
+            var totalConDescuento = totalAPagar - descuento;
+            document.getElementById('total').value = totalConDescuento > 0 ? totalConDescuento.toFixed(2) : 0.00;
+        });
+    
+        function calcularTotal(precio, cantidad = 1) {
+            var total = precio * cantidad;
+            document.getElementById('totalCalculado').value = total.toFixed(2);
+    
+            // Aplicar descuento al total calculado
+            var descuento = parseFloat(document.getElementById('descuentoGlobal').value) || 0; // Manejo de NaN
+            var totalConDescuento = total - descuento;
+            document.getElementById('total').value = totalConDescuento > 0 ? totalConDescuento.toFixed(2) : 0.00;
+        }
+    </script>
+</body>
+</html>

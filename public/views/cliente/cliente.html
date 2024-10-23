@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cliente</title> 
+    <link rel="stylesheet" href="../../fonts/material-icon/css/material-design-iconic-font.min.css"> 
+    <link rel="stylesheet" href="../../css/style.css">
+    <meta name="robots" content="noindex, follow">
+</head>
+<body> 
+    <div class="main"> 
+        <section class="signup"> 
+            <div class="container">
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" class="signup-form">
+                        <h2 class="form-title">Registro de Clientes</h2>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="nombre" id="nombre" placeholder="Nombres" required/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="apellidos" id="apellidos" placeholder="Apellidos" required/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="numDocumento" id="numDocumento" placeholder="Numero de documento" />
+                        </div>
+                        <div class="form-group">
+                            <select class="form-input" name="tipoDocumento" id="tipoDocumento" required>
+                                <option value="CI">Carnet de Identidad</option>
+                            </select>
+                        </div>
+                        <div class="form-group"> 
+                            <input type="text" class="form-input" name="codCliente" id="codCliente" placeholder="Codigo de cliente" required/>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-input" name="telefono" id="telefono" placeholder="Telefono" required/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="email" id="email" placeholder="Correo electronico" />
+                        </div>
+                        <div class="form-group">
+                            <select class="form-input" name="grupoCliente" id="grupoCliente" required>
+                                <option value="V">cliente vip</option>
+                                <option value="C">cliente normal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-input" name="direccion" id="direccion" placeholder="Direccion" required></textarea>
+                        </div> 
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Registrar">
+                        </div>
+                    </form> 
+                    <p class="loginhere" id="mesageResponse" style="display: none;"> 
+                        
+                      </p>
+                    <p class="loginhere" id="loginhere" style="display: none;"> 
+                      Registrando.....
+                    </p>
+                </div>
+            </div>
+        </section> 
+    </div>
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../../js/cliente.js"></script>
+</body>
+</html>
