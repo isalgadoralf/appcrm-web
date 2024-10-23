@@ -9,19 +9,17 @@ Antes de ejecutar el proyecto, asegúrate de tener lo siguiente configurado:
 1. *Node.js*
    - Instalar el plugin de NodeJS en Jenkins.
    - Configurar la herramienta de NodeJS en la sección `Tools` del administrador de Jenkins para utilizar la versión 21.6.2.
+   - Nombrar la instalación como `21.6.2` para poder ejecutar el pipeline sin realizar cambios.
+   - En la sección `Global npm packages to install` de la instalación, añadir `pm2@5.4.2` para instalar el paquete pm2 de manera global.
+   - Guardar los cambios.
 
-2. *PM2*
-   - Instalar globalmente el paquete pm2 versión 5.4.2 en la máquina donde se ejecuta Jenkins.
-```ini
-server.port=9091
-```
-3. *Firewall*
-    - Revisa la configuración del Firewall de tu equipo para permitir a Jenkins ejecutar acciones en el equipo 
+2. *Firewall*
+    - Revisa la configuración del Firewall de tu equipo para permitir a Jenkins ejecutar acciones en el equipo
 
-4. *Puerto 3000 disponible*
+3. *Puerto 3000 disponible*
    - Asegúrate de que el `puerto 3000` esté libre en el servidor donde se ejecutará la aplicación web. El proyecto se levantará en este puerto.
 
-5. *Pipeline Jenkins*
+4. *Pipeline Jenkins*
 ```groovy
 pipeline
 pipeline {
