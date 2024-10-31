@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'HTDOCS_DIR', defaultValue: 'c:\\xampp\\htdocs', description: 'Ruta de la carpeta que corre el WebServer')
+        string(name: 'BACKEND_URL', defaultValue: 'http://axel-rta:9092', description: 'URL del backend')
+    }
+    stages {
+        stage('Clean Workspace') {
+            steps {
+                echo "Cleaning workspace..."
+                deleteDir()
+            }
+        }
+        stage('Clone Repository') {
+            steps {
+                echo "Cloning repository..."
+                git branch: 'main', url: 'https://github.com/isalgadoralf/appcrm-web.git'
+            }
+        }
+        stage('Update JSON Config') {
+            steps {
+                script {
+                    def jsonFilePath = 'config.json'
+                    echo "Updating backend URL in JSON config..."
+                    bat """
+                    powershell -Command "(Get-Content -path '${jsonFilePath}') -replace '\"backendUrl\" : \".*\"', '\"backendUrl\" : \"${BACKEND_URL}\"' | Set-Content -path '${jsonFilePath}'"
+                    """
+                }
+            }
+        }
+        stage('Copy to HTDOCS') {
+            steps {
+                echo "Copying files to HTDOCS directory..."
+                bat """
+                if exist "${HTDOCS_DIR}" ( rmdir /S /Q "${HTDOCS_DIR}" ) else ( echo "${HTDOCS_DIR} does not exist, creating it." )
+                mkdir "${HTDOCS_DIR}"
+                xcopy /E /I /Y * "${HTDOCS_DIR}"
+                """
+            }
+        }
+    }
+    post {
+        success {
+            echo "Build succeeded! Files copied successfully."
+        }
+        failure {
+            echo "Build failed. Please check the error logs."
+        }
+        cleanup {
+            echo "Cleaning up workspace..."
+            deleteDir()
+        }
+    }
+}
+
