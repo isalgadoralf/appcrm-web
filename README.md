@@ -14,7 +14,4 @@ Antes de ejecutar el proyecto, asegúrate de tener lo siguiente configurado:
    - El puerto a utilizar debe ser configurado manualmente en el servidor web.
 
 ### Configurar variables de entorno
-   - Se deben setear las variables parametrizadas en Jenkins tras el despliegue, estas son `HTDOCS_DIR` donde se define la ruta del despliegue de la app según se tenga configurado el servidor web y `BACKEND_URL` que es la URL del servidor del backend.
-
-### Paginas disponibles
-   - Las paginas disponibles para el registro son localhost o equivalentes y localhost/venta.html o equivalente.
+   - Se deben setear las variables parametrizadas en Jenkins tras el despliegue, estas son `HTDOCS_DIR` que es la ruta donde debe ir el proyecto según su servidor web y `BACKEND_URL` que es la URL del servidor del backend.

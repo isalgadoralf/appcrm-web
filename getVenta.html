@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ventas Registradas</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="main">
+        <section class="ventas">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 20px; width: 100%;">
+                    <button onclick="window.location.href='/';" class="form-submit">
+                        Ir a Registro de clientes
+                    </button>
+                </div>
+                <div style="text-align: center; margin-bottom: 20px; width: 100%;">
+                    <button onclick="window.location.href='venta.html';" class="form-submit">
+                        Ir a Venta
+                    </button>
+                </div>
+                <h2 class="form-title" style="font-size: 2rem; color: antiquewhite;">Ventas Registradas</h2>
+                <table id="ventasTable" class="table" style="border: 2px solid #000;">
+                    <thead>
+                        <tr>
+                            <th >ID Venta</th>
+                            <th>Fecha Venta</th>
+                            <th>Total</th>
+                            <th>Descuento Global</th>
+                            <th>Cliente</th>
+                            <th>Documento</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/getVenta.js"></script>
+</body>
+</html>
